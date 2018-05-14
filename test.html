@@ -1,3 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  
+</body>
+<script>
 "use strict";
 // 博客内容
 var blogItem = function (title, content, author) {
@@ -23,24 +35,15 @@ String.prototype.trim=function(){
 　return this.replace(/(^\s*)|(\s*$)/g, "");
 }
 // 储存方法
-var Blog = function () {
-  // FIXME: data是什么意思
-  LocalContractStorage.defineMapProperty(this, "data", {
-    parse: function (text) {
-      return new blogItem(text);
-    },
-    stringify: function (o) {
-      return o.toString();
-    }
-  })
-}
+var Blog = {}
 
-Blog.prototype = {
+Blog.constructor = {
   init: function () {
       // todo
   },
   // FIXME: save在index.html调用没有传参数，这些参数怎么来？
   save: function (title, content) {
+    console.log(title, content)
       title = title.trim();
       content = content.trim();
       if (title === "" || content === ""){
@@ -51,11 +54,12 @@ Blog.prototype = {
       }
       console.log (from)
       var from = Blockchain.transaction.from;
-      var blogItemval = this.data.get(title);
+      // var blogItemval = this.data.get(title);
       // if (blogItemval){
       //     throw new Error("content has been occupied");
       // }
       var blogItemchild = new blogItem(title, content, from);
+      console.log(blogItemchild)
       this.data.put(title, blogItemchild);
   },
 
@@ -67,4 +71,7 @@ Blog.prototype = {
       return this.data.get(key);
   }
 };
-module.exports = Blog;
+console.log(Blog)
+console.log(Blog.save("xxx","hhhhhhhhh"))
+</script>
+</html>
